@@ -3,36 +3,35 @@
 
 // Card memory is a game where you have to click on a card to see what image is underneath it and try to find the matching image underneath the other cards.
 
-// User Stories
-//  User can see a grid with n x n cards (n is an integer). All the cards are faced down initially (hidden state)
-//  User can click a button to start the game. When this button is clicked, a timer will start
-//  User can click on any card to unveil the image that is underneath it (change it to visible state). The image will be displayed until the user clicks on a 2nd card
-// When the User clicks on the 2nd card:
-
-//  If there is a match, the 2 cards will be eliminated from the game (either hide/remove them or leave them in the visible state)
-//  If there isn't a match, the 2 cards will flip back to their original state (hidden state)
 //  When all the matches have been found, the User can see a dialog box showing a Congratulations message with a counter displaying the time it took to finish the game
 // Bonus features
 //  Use can choose between multiple levels of difficulty (Easy, Medium, Hard). Increased difficulty means: decreasing the time available to complete and/or increasing the number of cards
 //  User can see the game statistics (nr. of times he won / he lost, best time for each level)
 
+// gal butu geriau susikurti dinamini contenta?
+
+import { elements } from '../../js/views/base'
+console.log('loool')
+
 let cardsSelect = document.querySelectorAll('.card')
 let cards = Array.from(cardsSelect)
-
+let matchedCards = 0
 let length = cards.length
 let imgSelector = document.querySelectorAll('.img-style')
 let images = Array.from(imgSelector)
 
+let startButton = document.getElementById('start')
+
 // Function for random images
+console.log(elements)
 
 function shuffleArray(array) {
-	for (var i = array.length - 1; i > 0; i--) {
-		var j = Math.floor(Math.random() * (i + 1))
-		var temp = array[i]
+	for (let i = array.length - 1; i > 0; i--) {
+		let j = Math.floor(Math.random() * (i + 1))
+		let temp = array[i]
 		array[i] = array[j]
 		array[j] = temp
 	}
-	// console.log(array)
 
 	addPhotos(images, array)
 }
@@ -54,26 +53,31 @@ letsMakeArr(length)
 
 function onClickClassChange(cards) {
 	getIndexOfContainer()
-	cards.map(item => {
-		item.addEventListener('click', function() {
-			item.classList.value === 'card is-flipped'
-				? item.classList.remove('is-flipped')
-				: item.classList.add('is-flipped')
+	cards.map(card => {
+		card.addEventListener('click', function() {
+			card.classList.value === 'card is-flipped'
+				? card.classList.remove('is-flipped')
+				: card.classList.add('is-flipped')
+			// disabling ability to press on the opened card
+			if (card.classList.value === 'card is-flipped') {
+				card.style.pointerEvents = 'none'
+			}
 		})
 	})
 
 	function getIndexOfContainer() {
-		let container = document.body
+		const container = document.getElementById('container')
 		let arrOfIndexes = []
 		let arrOfSrcValues = []
 
-		// single event listener for all dynamically added elements
 		container.addEventListener('click', function(event) {
 			if (event.target.classList.contains('card__item--back')) {
 				show.call(event.target, event)
 			}
 			// geting src of image tag
+
 			arrOfSrcValues.push(images[show.call(event.target, event)].src)
+
 			// getting index value of cicked element
 			arrOfIndexes.push(show.call(event.target, event))
 
@@ -82,15 +86,21 @@ function onClickClassChange(cards) {
 				cards[arrOfIndexes[0]].classList.remove('is-flipped')
 				cards[arrOfIndexes[1]].classList.remove('is-flipped')
 				cards[arrOfIndexes[2]].classList.remove('is-flipped')
+				// dont like this part
+				cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
+				cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
+				cards[arrOfIndexes[2]].style.pointerEvents = 'auto'
 
 				arrOfIndexes = []
 				arrOfSrcValues = []
 			} else if (arrOfSrcValues[0] === arrOfSrcValues[1]) {
-				// reseting arrays to use logic once again
+				console.log(matchedCards)
+				if (matchedCards === 12) {
+					console.log('You won the game')
+				}
 				arrOfIndexes = []
 				arrOfSrcValues = []
-
-				console.log('Paintings matched')
+				return matchedCards++
 			} else if (
 				// checking if src values match
 				arrOfSrcValues[0] !== arrOfSrcValues[1] &&
@@ -102,6 +112,9 @@ function onClickClassChange(cards) {
 				setTimeout(function() {
 					cards[arrOfIndexes[0]].classList.remove('is-flipped')
 					cards[arrOfIndexes[1]].classList.remove('is-flipped')
+					// enambling ability to press on a card
+					cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
+					cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
 					return (arrOfIndexes = [])
 				}, 1000)
 				return (arrOfSrcValues = [])
@@ -127,30 +140,27 @@ function onClickClassChange(cards) {
 function matchTheImg(index) {
 	let flipValues = []
 	flipValues.push(images[index].src)
-	console.log(flipValues)
 }
-
-onClickClassChange(cards, images)
 
 function addPhotos(containers, arrayForPhotos) {
 	for (let i = 0; i < arrayForPhotos.length; i++) {
-		// console.log(i)
-		// console.log(containers[i])
 		containers[i].src = `images/painting${arrayForPhotos[i]}.jpg`
 	}
 }
 
 // there is 1s delay for a first call, so I reduce the time by 1s. How could I solve it the other way?
-let timeInSeconds = 89
+let timeInSeconds = 200
 function startTimer() {
 	let timer = document.getElementById('time')
-	let startButton = document.getElementById('start')
 
-	startButton.addEventListener('click', function() {
+	startButton.addEventListener('click', startButon)
+
+	function startButon() {
+		onClickClassChange(cards, images)
 		intervalId = setInterval(timeLeft, 1000)
-	})
-
-	console.log('first call')
+		// disabling button so user can not call function once again
+		startButton.disabled = true
+	}
 
 	let min, sec, intervalId
 	function timeLeft() {
@@ -164,7 +174,18 @@ function startTimer() {
 
 		if (--timeInSeconds < 0) {
 			console.log('Game over')
+
 			stopSubtraction()
+			// after time is finished player can't open any new cards
+			cards.map(card => {
+				card.style.pointerEvents = 'none'
+			})
+		} else if (matchedCards === 12) {
+			stopSubtraction()
+			console.log(`You won. Time left ${timeInSeconds}`)
+			cards.map(card => {
+				card.style.pointerEvents = 'none'
+			})
 		}
 	}
 
@@ -172,4 +193,33 @@ function startTimer() {
 		clearInterval(intervalId)
 	}
 }
-startTimer()
+startTimer() // Do not like this part
+
+function reset() {
+	let resetButton = document.getElementById('reset')
+	resetButton.addEventListener('click', function() {
+		cards.map(card => {
+			card.style.pointerEvents = 'auto'
+		})
+		onClickClassChange(cards, images)
+		letsMakeArr(length)
+		cards.map(card => {
+			card.classList.value === 'card is-flipped'
+				? card.classList.remove('is-flipped')
+				: ''
+		})
+
+		//
+
+		startButton.disabled = false
+		timeInSeconds = 200
+		return (matchedCards = 0)
+	})
+}
+
+reset()
+// labai daug besikartojancio kodo reiketu susideti i funckijas.
+
+/// MODULE PATERN
+
+// CONTROLER

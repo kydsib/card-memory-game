@@ -1,19 +1,15 @@
 body {
-	background: rgb(178, 174, 238);
-	background: radial-gradient(
-		circle,
-		rgba(178, 174, 238, 1) 62%,
-		rgba(148, 158, 233, 1) 93%
-	);
+	background: #b2aeee;
+	background: radial-gradient(circle, #b2aeee 62%, #949ee9 93%);
 }
 
 .options-tab {
 	height: 200px;
 	display: block;
 }
+
 .container {
 	display: grid;
-
 	height: 96vh;
 	grid-template-columns: repeat(6, 1fr);
 	grid-template-rows: repeat(4, 1fr);
@@ -28,25 +24,21 @@ body {
 	text-align: center;
 	transition: transform 0.6s;
 	transform-style: preserve-3d;
-
-	&__item {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		backface-visibility: hidden;
-
-		&--front {
-			transform: rotateY(180deg);
-		}
-
-		&--back {
-			background: red;
-		}
-	}
-
-	&.is-flipped {
-		transform: rotateY(180deg);
-	}
+}
+.card__item {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	backface-visibility: hidden;
+}
+.card__item--front {
+	transform: rotateY(180deg);
+}
+.card__item--back {
+	background: red;
+}
+.card.is-flipped {
+	transform: rotateY(180deg);
 }
 
 .img-style {
