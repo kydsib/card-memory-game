@@ -16,8 +16,32 @@
             <span id="time">01:30</span>
             <button id="start">Start</button>
             <button id="reset">Reset Game</button>
-            <span>Press the button to start the game</span>
+            <!-- <button id="easy">Easy</button>
+            <button id="medium">Medium</button>
+            <button id="hard">Hard</button> -->
         </div>
+        <div class="modal" id="myModal">
+
+            <!-- Modal content -->
+            <div class="modal__content">
+                <span class="close">&times;</span>
+                <p id="winText">
+                    You have won the game</p>
+            </div>
+
+        </div>
+
+        <div class="modal" id="gameTypeModal">
+            <div class="modal__content">
+                <span class="close">&times;</span>
+                <span>
+                    Choose the game level</span>
+                <button id="easy">Easy</button>
+                <button id="medium">Medium</button>
+                <button id="hard">Hard</button>
+            </div>
+        </div>
+
         <div class="container" id="container">
             <div class="card">
                 <div class="card__item card__item--front">
@@ -166,6 +190,6 @@
 
         </body>
         <!-- <script src="js/index.js" type="module"></script> -->
-                <!-- <script src="index.js"></script> -->
+                                                                <!-- <script src="index.js"></script> -->
     </body>
 </html>
