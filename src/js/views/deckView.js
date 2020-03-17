@@ -59,6 +59,12 @@ let matchedCards = 0
 export const getIndexOfContainer = () => {
 	let arrOfIndexes = []
 	let arrOfSrcValues = []
+	let scoreForWins
+	if (localStorage.getItem('Won') === null) {
+		scoreForWins = 0
+	} else {
+		scoreForWins = localStorage.getItem('Won')
+	}
 
 	elements.container.addEventListener('click', function(event) {
 		if (event.target.classList.contains('card__item--back')) {
@@ -66,7 +72,7 @@ export const getIndexOfContainer = () => {
 		}
 		// geting src of image tag
 		arrOfSrcValues.push(elements.images[show.call(event.target, event)].src)
-		// getting index value of cicked element
+
 		arrOfIndexes.push(show.call(event.target, event))
 
 		// If player tires to open more that two cards ar a time, denie it
@@ -85,9 +91,18 @@ export const getIndexOfContainer = () => {
 			console.log(matchedCards)
 			if (matchedCards === 11) {
 				timerView.stopTimer()
+
+				// Game won text + scores // move everything to separate function?
 				console.log('You won the game')
+				scoreForWins++
 				elements.messageBox.innerHTML = `You finished the game in ${timerView.calcTime()} seconds`
-				// Kaip sustabdyti timeri, jei jis yra prie model?
+				localStorage.setItem('Won', scoreForWins)
+				let timesWon = localStorage.getItem('Won')
+				let timesLost = localStorage.getItem('Lost')
+				elements.winText.textContent = `You have won - ${timesWon} times`
+				elements.loseText.textContent = `You have lost - ${timesLost} times`
+
+				// How to send
 
 				// Need to add a pop up table w/ time and score
 				elements.dialogBox.style.display = 'block'

@@ -16,24 +16,33 @@
             <span id="time">01:30</span>
             <button id="start">Start</button>
             <button id="reset">Reset Game</button>
-            <!-- <button id="easy">Easy</button>
-            <button id="medium">Medium</button>
-            <button id="hard">Hard</button> -->
+
         </div>
         <div class="modal" id="myModal">
 
-            <!-- Modal content -->
+            <!-- Game won Modal content -->
             <div class="modal__content">
-                <span class="close">&times;</span>
+                <span class="close" id="scoreModal">&times;</span>
                 <p id="winText">
                     You have won the game</p>
+                <div class="win-loss">
+                    <span id="winTimes">You have won -</span>
+                    <span id="loseTimes">You have lsot -</span>
+                </div>
+                <div class="score-card">
+
+                    <div class="score-easy">Best easy lvl time is-</div>
+                    <div class="score-medium">Best medium lvl time is-</div>
+                    <div class="score-hard">Best hard lvl time is-</div>
+                </div>
             </div>
 
         </div>
 
+        <!-- New Game Modal content -->
         <div class="modal" id="gameTypeModal">
             <div class="modal__content">
-                <span class="close">&times;</span>
+                <span class="close" id="levelModal">&times;</span>
                 <span>
                     Choose the game level</span>
                 <button id="easy">Easy</button>
@@ -190,6 +199,6 @@
 
         </body>
         <!-- <script src="js/index.js" type="module"></script> -->
-                                                                <!-- <script src="index.js"></script> -->
+                                                                                                                                <!-- <script src="index.js"></script> -->
     </body>
 </html>

@@ -1,32 +1,44 @@
 import { elements } from './base'
+import * as controler from '../index'
 
-let intervalId, matchedCards, gameTime
+let intervalId, matchedCards, gameTime, timeByLvl
 
 export const calcTime = () => {
-	return elements.timeEasy - timeInSec
+	// Default lvl starting time - time left
+	return timeByLvl - gameTime
 }
 
 export const gameTimeEasy = () => {
+	timeByLvl = elements.timeEasy
 	gameTime = elements.timeEasy
 	calcAndShowTime(0)
 	// hiding modal after lvl is selected
 	elements.gameLvlBox.style.display = 'none'
+	// elements.startButton.addEventListener('click', controler.controlTimer)
 	return gameTime
 }
 
 export const gameTimeMedium = () => {
+	// time to use as default starting time in medium game
+	timeByLvl = elements.timeMedium
+	// Time that is used to store how mutch sec passed from start
 	gameTime = elements.timeMedium
 
 	calcAndShowTime(0)
 	// hiding modal after lvl is selected
 	elements.gameLvlBox.style.display = 'none'
+	// this wont solve the problem of adding multiple event listeners on start butoon
+	// or I should check if elent listener is surely removed. How to do that?
+	// elements.startButton.addEventListener('click', controler.controlTimer)
 	return gameTime
 }
 export const gameTimeHard = () => {
+	timeByLvl = elements.timeHard
 	gameTime = elements.timeHard
 	calcAndShowTime(0)
 	// hiding modal after lvl is selected
 	elements.gameLvlBox.style.display = 'none'
+	// elements.startButton.addEventListener('click', controler.controlTimer)
 	return gameTime
 }
 
@@ -44,6 +56,14 @@ const calcAndShowTime = delay => {
 }
 
 const timeLeft = () => {
+	let scoreForLoses
+	//
+	if (localStorage.getItem('Lost') === null) {
+		scoreForLoses = 0
+	} else {
+		scoreForLoses = localStorage.getItem('Won')
+	}
+
 	matchedCards = 0
 	calcAndShowTime(1)
 
@@ -53,6 +73,13 @@ const timeLeft = () => {
 		elements.timer.innerHTML = '00:00'
 
 		alert('Game Over')
+		// Move this part out
+		scoreForLoses++
+		localStorage.setItem('Lost', scoreForLoses)
+		let timesLost = localStorage.getItem('Lost')
+		elements.loseText.textContent = `You have won - ${timesLost} times`
+		let timesWon = localStorage.getItem('Won')
+		elements.winText.textContent = `You have won - ${timesWon} times`
 		// stoping timer
 		stopTimer()
 
@@ -96,6 +123,7 @@ export const reset = () => {
 	// Setting timer to 0:00
 	calcAndShowTime(0)
 	showModal()
+	// elements.startButton.removeEventListener('click', controler.controlTimer) // this removes event listener but I wont be added again
 	// reseting timer
 	return (matchedCards = 0)
 }

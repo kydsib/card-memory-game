@@ -29,21 +29,28 @@ const controlDeck = () => {
 	// addling ability to flip card
 	deckView.toggleClassOnClick()
 	timerView.cadFlipEnable()
+	// this wont run when start -> reset -> start. It wont find the index
 	deckView.getIndexOfContainer() //might need to leave this one here
-	// perduoti eventa toggleCLassOnClick
 }
 
 // TIMER CONTROLER
 
-const controlTimer = () => {
+export const controlTimer = () => {
+	// exporting to check if I can remove event listener after rset
+	console.log('Control timer was called')
 	// initiating new values for deck
 	controlDeck()
 	// Starting timer
 	timerView.timeCounter()
 	// disabling start buton until game reset
 	elements.startButton.disabled = true
+	// elements.startButton.removeEventListener('click')
 }
 
+const closeModal = () => {
+	elements.gameLvlBox.style.display = 'none'
+	elements.dialogBox.style.display = 'none'
+}
 // BUTTONS
 window.onload = timerView.showModal
 elements.startButton.addEventListener('click', controlTimer)
@@ -51,3 +58,6 @@ elements.resetButton.addEventListener('click', timerView.reset)
 elements.buttonEasy.addEventListener('click', timerView.gameTimeEasy)
 elements.buttonMediun.addEventListener('click', timerView.gameTimeMedium)
 elements.buttonHard.addEventListener('click', timerView.gameTimeHard)
+// elements.closeModalBtn.addEventListener('click', closeModal) // why this not working? because I'm trying to add event listener w/o maping?
+elements.closeLvlModal.addEventListener('click', closeModal)
+elements.closeScoreModal.addEventListener('click', closeModal)
