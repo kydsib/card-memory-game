@@ -1,14 +1,60 @@
 import { elements } from './base'
 import * as controler from '../index'
 
-let intervalId, matchedCards, gameTime, timeByLvl
+let intervalId, matchedCards, gameTime, timeByLvl, gameLvl
+
+const getLvl = lvl => {
+	gameLvl = lvl
+	return gameLvl
+}
 
 export const calcTime = () => {
 	// Default lvl starting time - time left
 	return timeByLvl - gameTime
 }
 
+export const storeScoreByLvl = scoreTime => {
+	let currentBestScore
+	if (gameLvl === 'E') {
+		currentBestScore = localStorage.getItem('EasyBestTime')
+		if (currentBestScore === null) {
+			localStorage.setItem('EasyBestTime', scoreTime)
+			// need to add function to calc min and sec? Now time in sec is being shown
+		} else if (scoreTime < parseInt(currentBestScore, 10)) {
+			localStorage.setItem('EasyBestTime', scoreTime)
+		} else {
+			console.log('Best score is lower than current')
+		}
+	} else if (gameLvl === 'M') {
+		currentBestScore = localStorage.getItem('MediumBestTime')
+
+		if (currentBestScore === null) {
+			localStorage.setItem('MediumBestTime', scoreTime)
+			// need to add function to calc min and sec? Now time in sec is being shown
+		} else if (scoreTime < parseInt(currentBestScore, 10)) {
+			localStorage.setItem('MediumBestTime', scoreTime)
+		} else {
+			console.log('Best score is lower than current')
+		}
+	} else if (gameLvl === 'H') {
+		currentBestScore = localStorage.getItem('HardBestTime')
+		if (currentBestScore === null) {
+			localStorage.setItem('HardBestTime', scoreTime)
+			// need to add function to calc min and sec? Now time in sec is being shown
+		} else if (scoreTime < parseInt(currentBestScore, 10)) {
+			localStorage.setItem('HardBestTime', scoreTime)
+		} else {
+			console.log('Best score is lower than current')
+		}
+	} else {
+		console.log("woops something wrong, level wasn't selected")
+	}
+}
+
 export const gameTimeEasy = () => {
+	getLvl('E')
+	// if I declare the game time here, it could be read by calcTime
+	// returnd from that together w/ remaining time, passed to store Score by lvl?
 	timeByLvl = elements.timeEasy
 	gameTime = elements.timeEasy
 	calcAndShowTime(0)
@@ -19,6 +65,7 @@ export const gameTimeEasy = () => {
 }
 
 export const gameTimeMedium = () => {
+	getLvl('M')
 	// time to use as default starting time in medium game
 	timeByLvl = elements.timeMedium
 	// Time that is used to store how mutch sec passed from start
@@ -33,6 +80,7 @@ export const gameTimeMedium = () => {
 	return gameTime
 }
 export const gameTimeHard = () => {
+	getLvl('H')
 	timeByLvl = elements.timeHard
 	gameTime = elements.timeHard
 	calcAndShowTime(0)
@@ -61,7 +109,7 @@ const timeLeft = () => {
 	if (localStorage.getItem('Lost') === null) {
 		scoreForLoses = 0
 	} else {
-		scoreForLoses = localStorage.getItem('Won')
+		scoreForLoses = localStorage.getItem('Lost')
 	}
 
 	matchedCards = 0
@@ -76,6 +124,7 @@ const timeLeft = () => {
 		// Move this part out
 		scoreForLoses++
 		localStorage.setItem('Lost', scoreForLoses)
+
 		let timesLost = localStorage.getItem('Lost')
 		elements.loseText.textContent = `You have won - ${timesLost} times`
 		let timesWon = localStorage.getItem('Won')

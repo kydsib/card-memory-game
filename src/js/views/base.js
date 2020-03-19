@@ -22,5 +22,8 @@ export const elements = {
 
 	// SCORE
 	winText: document.getElementById('winTimes'),
-	loseText: document.getElementById('loseTimes')
+	loseText: document.getElementById('loseTimes'),
+	bestEasyTime: document.getElementById('score-easy'),
+	bestMediumTime: document.getElementById('score-medium'),
+	bestHardTime: document.getElementById('score-hard')
 }
