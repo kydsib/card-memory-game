@@ -1,5 +1,6 @@
 import { elements } from './base'
 import * as timerView from './timerView'
+import * as Score from '../models/Score'
 
 // I might not need this
 // const uniqueID = () => {
@@ -14,25 +15,53 @@ import * as timerView from './timerView'
 // 	)
 // }
 
-export const addPhotos = arrForPhotos => {
+// Need to change this
+const addPhotos = arrForPhotos => {
+	console.log(arrForPhotos)
 	for (let i = 0; i < arrForPhotos.length; i++) {
-		elements.images[i].src = `../../images/painting${arrForPhotos[i]}.jpg`
+		// elements.images[i].src = `../../images/painting${arrForPhotos[i]}.jpg`
+		elements.images[i].src = `${arrForPhotos[i]}`
 		// elements.images[i].id = elements.cards[i].id = uniqueID()
 	}
 }
 
-// const toggle = () => {
-// 	elements.cards.map(card => {
-// 		card.classList.value === 'card'
-// 			? card.classList.add('is-flipped')
-// 			: card.classList.remove('is-flipped')
+export const shuffleArrayValues = () => {
+	let array = [
+		'https://source.unsplash.com/KZC7BJo0Cl0/400X400',
+		'https://source.unsplash.com/KZC7BJo0Cl0/400X400',
+		'https://source.unsplash.com/GfQEdpIkkuw/400x400',
+		'https://source.unsplash.com/GfQEdpIkkuw/400x400',
+		'https://source.unsplash.com/F6MkzlXsWTc/400x400',
+		'https://source.unsplash.com/F6MkzlXsWTc/400x400',
+		'https://source.unsplash.com/ZsA3DknVxRc/400x400',
+		'https://source.unsplash.com/ZsA3DknVxRc/400x400',
+		'https://source.unsplash.com/TjegK_z-0j8/400x400',
+		'https://source.unsplash.com/TjegK_z-0j8/400x400',
+		'https://source.unsplash.com/-cIsDqVGRyY/400x400',
+		'https://source.unsplash.com/-cIsDqVGRyY/400x400',
+		'https://source.unsplash.com/JRcVCHzjRxM/400x400',
+		'https://source.unsplash.com/JRcVCHzjRxM/400x400',
+		'https://source.unsplash.com/oPBl-R8bjww/400x400',
+		'https://source.unsplash.com/oPBl-R8bjww/400x400',
+		'https://source.unsplash.com/R4KydJd3l2k/400x400',
+		'https://source.unsplash.com/R4KydJd3l2k/400x400',
+		'https://source.unsplash.com/KZdqA5QtWFU/400x400',
+		'https://source.unsplash.com/KZdqA5QtWFU/400x400',
+		'https://source.unsplash.com/w-bPRl6xNPs/400x400',
+		'https://source.unsplash.com/w-bPRl6xNPs/400x400',
+		'https://source.unsplash.com/oBTC7jviUxs/400x400',
+		'https://source.unsplash.com/oBTC7jviUxs/400x400'
+	]
 
-// 		if (card.classList.value === 'card is-flipped') {
-// 			console.log('after reset')
-// 			card.style.pointerEvents = 'none'
-// 		}
-// 	})
-// }
+	for (let i = array.length - 1; i > 0; i--) {
+		let j = Math.floor(Math.random() * (i + 1))
+		let temp = array[i]
+		array[i] = array[j]
+		array[j] = temp
+	}
+	console.log(array)
+	addPhotos(array)
+}
 
 export const toggleClassOnClick = () => {
 	elements.cards.forEach(card => {
@@ -111,7 +140,7 @@ export const getIndexOfContainer = () => {
 				elements.winText.textContent = `You have won - ${timesWon} times`
 				elements.loseText.textContent = `You have lost - ${scoreForLoses} times`
 				// Trying to store best time by lvl to lS
-				timerView.storeScoreByLvl(timerView.calcTime())
+				Score.storeScoreByLvl(timerView.calcTime())
 
 				let easyLowScoreTime =
 					localStorage.getItem('EasyBestTime') === null

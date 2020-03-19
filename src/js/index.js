@@ -5,8 +5,6 @@
 
 // Bonus features
 //  Add or remove number of cards depending on gameLvl
-//  User can see the game statistics (nr. of times he won / he lost, best time for each level)
-
 // gal butu geriau susikurti dinamini contenta?
 
 import Deck from './models/Deck'
@@ -23,21 +21,17 @@ const state = {}
 // DECK CONTROLER
 
 const controlDeck = () => {
-	state.deck = new Deck()
-	// randomazing array and then adding photos to it
-	deckView.addPhotos(state.deck.arrayOfPairedValues())
+	deckView.shuffleArrayValues()
 	// addling ability to flip card
 	deckView.toggleClassOnClick()
 	timerView.cadFlipEnable()
-	// this wont run when start -> reset -> start. It wont find the index
-	deckView.getIndexOfContainer() //might need to leave this one here
+
+	deckView.getIndexOfContainer()
 }
 
 // TIMER CONTROLER
 
 export const controlTimer = () => {
-	// exporting to check if I can remove event listener after rset
-	console.log('Control timer was called')
 	// initiating new values for deck
 	controlDeck()
 	// Starting timer
