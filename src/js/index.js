@@ -21,7 +21,8 @@ const state = {}
 // DECK CONTROLER
 
 const controlDeck = () => {
-	deckView.shuffleArrayValues()
+	state.deck = new Deck()
+	deckView.addPhotos(state.deck.shuffleArrayValues())
 	// addling ability to flip card
 	deckView.toggleClassOnClick()
 	timerView.cadFlipEnable()

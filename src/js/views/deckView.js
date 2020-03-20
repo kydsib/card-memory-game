@@ -1,6 +1,8 @@
 import { elements } from './base'
 import * as timerView from './timerView'
-import * as Score from '../models/Score'
+import * as scoreView from './scoreView'
+
+// is it ok to import parts from Module files?
 
 // I might not need this
 // const uniqueID = () => {
@@ -16,84 +18,35 @@ import * as Score from '../models/Score'
 // }
 
 // Need to change this
-const addPhotos = arrForPhotos => {
+export const addPhotos = arrForPhotos => {
 	console.log(arrForPhotos)
 	for (let i = 0; i < arrForPhotos.length; i++) {
 		// elements.images[i].src = `../../images/painting${arrForPhotos[i]}.jpg`
 		elements.images[i].src = `${arrForPhotos[i]}`
 		// elements.images[i].id = elements.cards[i].id = uniqueID()
 	}
-}
-
-export const shuffleArrayValues = () => {
-	let array = [
-		'https://source.unsplash.com/KZC7BJo0Cl0/400X400',
-		'https://source.unsplash.com/KZC7BJo0Cl0/400X400',
-		'https://source.unsplash.com/GfQEdpIkkuw/400x400',
-		'https://source.unsplash.com/GfQEdpIkkuw/400x400',
-		'https://source.unsplash.com/F6MkzlXsWTc/400x400',
-		'https://source.unsplash.com/F6MkzlXsWTc/400x400',
-		'https://source.unsplash.com/ZsA3DknVxRc/400x400',
-		'https://source.unsplash.com/ZsA3DknVxRc/400x400',
-		'https://source.unsplash.com/TjegK_z-0j8/400x400',
-		'https://source.unsplash.com/TjegK_z-0j8/400x400',
-		'https://source.unsplash.com/-cIsDqVGRyY/400x400',
-		'https://source.unsplash.com/-cIsDqVGRyY/400x400',
-		'https://source.unsplash.com/JRcVCHzjRxM/400x400',
-		'https://source.unsplash.com/JRcVCHzjRxM/400x400',
-		'https://source.unsplash.com/oPBl-R8bjww/400x400',
-		'https://source.unsplash.com/oPBl-R8bjww/400x400',
-		'https://source.unsplash.com/R4KydJd3l2k/400x400',
-		'https://source.unsplash.com/R4KydJd3l2k/400x400',
-		'https://source.unsplash.com/KZdqA5QtWFU/400x400',
-		'https://source.unsplash.com/KZdqA5QtWFU/400x400',
-		'https://source.unsplash.com/w-bPRl6xNPs/400x400',
-		'https://source.unsplash.com/w-bPRl6xNPs/400x400',
-		'https://source.unsplash.com/oBTC7jviUxs/400x400',
-		'https://source.unsplash.com/oBTC7jviUxs/400x400'
-	]
-
-	for (let i = array.length - 1; i > 0; i--) {
-		let j = Math.floor(Math.random() * (i + 1))
-		let temp = array[i]
-		array[i] = array[j]
-		array[j] = temp
-	}
-	console.log(array)
-	addPhotos(array)
+	console.log('run')
 }
 
 export const toggleClassOnClick = () => {
 	elements.cards.forEach(card => {
 		card.addEventListener('click', function() {
-			console.log('card class should have changed')
 			card.classList.value === 'card'
 				? card.classList.add('is-flipped')
 				: card.classList.remove('is-flipped')
 
 			// disabling ability to press on the opened card
-			//
 			if (card.classList.value === 'card is-flipped') {
-				console.log('after reset')
 				card.style.pointerEvents = 'none'
 			}
 		})
-		// card.addEventListener('click', toggle, true)
 	})
 }
 
-// need to fix this or use ID instead
-let matchedCards = 0
-
 export const getIndexOfContainer = () => {
+	let matchedCards = 0
 	let arrOfIndexes = []
 	let arrOfSrcValues = []
-	let scoreForWins
-	if (localStorage.getItem('Won') === null) {
-		scoreForWins = 0
-	} else {
-		scoreForWins = localStorage.getItem('Won')
-	}
 
 	elements.container.addEventListener('click', function(event) {
 		if (event.target.classList.contains('card__item--back')) {
@@ -117,48 +70,11 @@ export const getIndexOfContainer = () => {
 			arrOfIndexes = []
 			arrOfSrcValues = []
 		} else if (arrOfSrcValues[0] === arrOfSrcValues[1]) {
-			console.log(matchedCards)
 			if (matchedCards === 11) {
 				timerView.stopTimer()
-
-				// Game won text + scores // move everything to separate function?
 				console.log('You won the game')
-				scoreForWins++
-				elements.messageBox.innerHTML = `You finished the game in ${timerView.calcTime()} seconds`
-				localStorage.setItem('Won', scoreForWins)
-				let timesWon = localStorage.getItem('Won')
-				// let timesLost = localStorage.getItem('Lost')
-
-				let scoreForLoses
-				//
-				if (localStorage.getItem('Lost') === null) {
-					scoreForLoses = 0
-				} else {
-					scoreForLoses = localStorage.getItem('Lost')
-				}
-
-				elements.winText.textContent = `You have won - ${timesWon} times`
-				elements.loseText.textContent = `You have lost - ${scoreForLoses} times`
-				// Trying to store best time by lvl to lS
-				Score.storeScoreByLvl(timerView.calcTime())
-
-				let easyLowScoreTime =
-					localStorage.getItem('EasyBestTime') === null
-						? 'Currently there is no best time'
-						: localStorage.getItem('EasyBestTime')
-				let mediumLowScoreTime =
-					localStorage.getItem('MediumBestTime') === null
-						? 'Currently there is no best time'
-						: localStorage.getItem('MediumBestTime')
-				let hardLowScoreTime =
-					localStorage.getItem('HardBestTime') === null
-						? 'Currently there is no best time'
-						: localStorage.getItem('HardBestTime')
-				elements.bestEasyTime.textContent = `Best easy lvl time is - ${easyLowScoreTime} seconds`
-				elements.bestMediumTime.textContent = `Best easy lvl time is - ${mediumLowScoreTime} seconds`
-				elements.bestHardTime.textContent = `Best easy lvl time is - ${hardLowScoreTime} seconds`
-
-				// How to send
+				// storing best scores to LS
+				scoreView.scoresToLocalStorage()
 
 				// Need to add a pop up table w/ time and score
 				elements.dialogBox.style.display = 'block'
@@ -197,5 +113,27 @@ export const getIndexOfContainer = () => {
 		var index = shows.indexOf(this)
 
 		return index
+	}
+}
+
+// Dynamicly creating deck
+export const createCard = quantity => {
+	const markup = `
+	<li class="card">
+	<div class="card__item card__item--front">
+		<img alt="painting" class="img-style" src="" />
+	</div>
+	<div class="card__item card__item--back"></div>
+	</li>
+	`
+
+	if (quantity === 'E') {
+		// make 4X5 grid
+	} else if (quantity === 'M') {
+		// make 6x6 grid
+	} else if (quantity === 'H') {
+		// make 48 cards?
+	} else {
+		console.log("woops you haven't picked the lvl")
 	}
 }

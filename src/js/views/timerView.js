@@ -1,13 +1,9 @@
 import { elements } from './base'
 import * as controler from '../index'
+import * as score from '../models/Score'
+import * as scoreVIew from './scoreView'
 
-let intervalId, matchedCards, gameTime, timeByLvl, gameLvl
-
-const getLvl = lvl => {
-	// Seting value to storeScoreByLvl function
-	gameLvl = lvl
-	return gameLvl
-}
+let intervalId, matchedCards, gameTime, timeByLvl
 
 export const calcTime = () => {
 	// Default lvl starting time - time left
@@ -15,18 +11,18 @@ export const calcTime = () => {
 }
 
 export const gameTimeEasy = () => {
-	getLvl('E')
+	// M connected to V not good
+	score.getLvl('E')
 	timeByLvl = elements.timeEasy
 	gameTime = elements.timeEasy
 	calcAndShowTime(0)
 	// hiding modal after lvl is selected
 	elements.gameLvlBox.style.display = 'none'
-	// elements.startButton.addEventListener('click', controler.controlTimer)
 	return gameTime
 }
 
 export const gameTimeMedium = () => {
-	getLvl('M')
+	score.getLvl('M')
 	// time to use as default starting time in medium game
 	timeByLvl = elements.timeMedium
 	// Time that is used to store how mutch sec passed from start
@@ -38,7 +34,7 @@ export const gameTimeMedium = () => {
 	return gameTime
 }
 export const gameTimeHard = () => {
-	getLvl('H')
+	score.getLvl('H')
 	timeByLvl = elements.timeHard
 	gameTime = elements.timeHard
 	calcAndShowTime(0)
@@ -61,14 +57,6 @@ const calcAndShowTime = delay => {
 }
 
 const timeLeft = () => {
-	let scoreForLoses
-	//
-	if (localStorage.getItem('Lost') === null) {
-		scoreForLoses = 0
-	} else {
-		scoreForLoses = localStorage.getItem('Lost')
-	}
-
 	matchedCards = 0
 	calcAndShowTime(1)
 
@@ -76,16 +64,9 @@ const timeLeft = () => {
 		// not yet sure why timer goes below 0. Because of calcAndShowTime?
 		// workaround fix for this problem
 		elements.timer.innerHTML = '00:00'
+		scoreVIew.gameLostGetScores()
+		elements.dialogBox.style.display = 'block'
 
-		alert('Game Over')
-		// Move this part out
-		scoreForLoses++
-		localStorage.setItem('Lost', scoreForLoses)
-
-		let timesLost = localStorage.getItem('Lost')
-		elements.loseText.textContent = `You have won - ${timesLost} times`
-		let timesWon = localStorage.getItem('Won')
-		elements.winText.textContent = `You have won - ${timesWon} times`
 		// stoping timer
 		stopTimer()
 

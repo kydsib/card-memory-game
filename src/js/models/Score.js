@@ -1,6 +1,15 @@
+let needLvl
+
+export const getLvl = lvl => {
+	// geting value from user picked lvl
+	needLvl = lvl
+	// deckView.card(lvl)
+	return lvl
+}
+
 export const storeScoreByLvl = scoreTime => {
 	let currentBestScore
-	if (gameLvl === 'E') {
+	if (needLvl === 'E') {
 		currentBestScore = localStorage.getItem('EasyBestTime')
 		if (currentBestScore === null) {
 			localStorage.setItem('EasyBestTime', scoreTime)
@@ -10,7 +19,7 @@ export const storeScoreByLvl = scoreTime => {
 		} else {
 			console.log('Best score is lower than current')
 		}
-	} else if (gameLvl === 'M') {
+	} else if (needLvl === 'M') {
 		currentBestScore = localStorage.getItem('MediumBestTime')
 
 		if (currentBestScore === null) {
@@ -21,7 +30,7 @@ export const storeScoreByLvl = scoreTime => {
 		} else {
 			console.log('Best score is lower than current')
 		}
-	} else if (gameLvl === 'H') {
+	} else if (needLvl === 'H') {
 		currentBestScore = localStorage.getItem('HardBestTime')
 		if (currentBestScore === null) {
 			localStorage.setItem('HardBestTime', scoreTime)
