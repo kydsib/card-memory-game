@@ -1,11 +1,6 @@
 // Card-Memory-Game
-// Tier: 2-Intermediate
 
 // Card memory is a game where you have to click on a card to see what image is underneath it and try to find the matching image underneath the other cards.
-
-// Bonus features
-//  Add or remove number of cards depending on gameLvl // DeckView should be responsible for this?
-// gal butu geriau susikurti dinamini contenta?
 
 import Deck from './models/Deck'
 import Score from './models/Score'
@@ -22,7 +17,8 @@ const state = {}
 // DECK CONTROLER
 
 const controlDeck = () => {
-	state.deck = new Deck()
+	// state.deck = new Deck()
+
 	deckView.addPhotos(state.deck.shuffleArrayValues())
 	// addling ability to flip card
 	deckView.toggleClassOnClick()
@@ -43,33 +39,13 @@ export const controlTimer = () => {
 	// elements.startButton.removeEventListener('click')
 }
 
-// CAN I REDO LOGIC TO THIS?
-const lvlControler = lvl => {
-	// toks butu geresnis variantas, bet kaip perduoti lvl necallinant pacios funkcijos iskarto?
-	if (lvl === 'E') {
-		// set game time
-		timerView.gameTimeEasy()
-		// set game lvl for score modal
-		state.score = new Score('E')
-	} else if (lvl === 'M') {
-		timerView.gameTimeMedium()
-		// set game lvl for score modal
-		state.score = new Score('M')
-	} else if (lvl === 'H') {
-		timerView.gameTimeHard()
-		// set game lvl for score modal
-		state.score = new Score('H')
-	} else {
-		console.log('Woops lvlControler failed')
-	}
-}
-
 const easyLvlControler = () => {
 	// set game time
 	timerView.gameTimeEasy()
 	// set game lvl for score modal
 	state.score = new Score('E')
 	state.deck = new Deck('E')
+	deckView.createCard('E')
 }
 
 const mediumLvlControler = () => {
@@ -78,6 +54,7 @@ const mediumLvlControler = () => {
 	// set game lvl for score modal
 	state.score = new Score('M')
 	state.deck = new Deck('M')
+	deckView.createCard('M')
 }
 
 const hardLvlControler = () => {
@@ -86,6 +63,7 @@ const hardLvlControler = () => {
 	// set game lvl for score modal
 	state.score = new Score('H')
 	state.deck = new Deck('H')
+	deckView.createCard('H')
 }
 
 export const setScoreControler = () => {

@@ -1,4 +1,5 @@
 export const elements = {
+	// ar reikia cards ir images dar kazkur?
 	cards: Array.from(document.querySelectorAll('.card')),
 	images: Array.from(document.querySelectorAll('.img-style')),
 	// BUTTONS
@@ -17,8 +18,8 @@ export const elements = {
 	gameLvlBox: document.getElementById('gameTypeModal'),
 	messageBox: document.getElementById('winText'),
 	timeEasy: 90,
-	timeMedium: 75,
-	timeHard: 60,
+	timeMedium: 120,
+	timeHard: 150,
 
 	// SCORE
 	winText: document.getElementById('winTimes'),

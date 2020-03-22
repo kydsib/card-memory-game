@@ -9,6 +9,7 @@ body {
 }
 
 .container {
+	padding-left: 0px;
 	display: grid;
 	height: 96vh;
 	grid-template-columns: repeat(6, 1fr);
@@ -18,6 +19,7 @@ body {
 }
 
 .card {
+	list-style: none;
 	position: relative;
 	width: 16vw;
 	height: 198px;

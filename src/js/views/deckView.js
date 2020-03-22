@@ -17,17 +17,18 @@ import * as scoreView from './scoreView'
 // 	)
 // }
 
-// Need to change this
+// Woul it be posible to do this without id?
 export const addPhotos = arrForPhotos => {
+	let imgContainers = Array.from(document.querySelectorAll('.img-style'))
 	for (let i = 0; i < arrForPhotos.length; i++) {
-		// elements.images[i].src = `../../images/painting${arrForPhotos[i]}.jpg`
-		elements.images[i].src = `${arrForPhotos[i]}`
-		// elements.images[i].id = elements.cards[i].id = uniqueID()
+		imgContainers[i].src = `${arrForPhotos[i]}`
+		// elements.images[i].id = cards[i].id = uniqueID()
 	}
 }
 
 export const toggleClassOnClick = () => {
-	elements.cards.forEach(card => {
+	let cards = Array.from(document.querySelectorAll('.card'))
+	cards.forEach(card => {
 		card.addEventListener('click', function() {
 			card.classList.value === 'card'
 				? card.classList.add('is-flipped')
@@ -45,25 +46,30 @@ export const getIndexOfContainer = () => {
 	let matchedCards = 0
 	let arrOfIndexes = []
 	let arrOfSrcValues = []
+	let imgContainers = Array.from(document.querySelectorAll('.img-style'))
+	let cards = Array.from(document.querySelectorAll('.card'))
 
 	elements.container.addEventListener('click', function(event) {
 		if (event.target.classList.contains('card__item--back')) {
 			show.call(event.target, event)
 		}
+
 		// geting src of image tag
-		arrOfSrcValues.push(elements.images[show.call(event.target, event)].src)
+		let elements = arrOfSrcValues.push(
+			imgContainers[show.call(event.target, event)].src
+		)
 
 		arrOfIndexes.push(show.call(event.target, event))
 
 		// If player tires to open more that two cards ar a time, denie it
 		if (arrOfIndexes.length > 2) {
-			elements.cards[arrOfIndexes[0]].classList.remove('is-flipped')
-			elements.cards[arrOfIndexes[1]].classList.remove('is-flipped')
-			elements.cards[arrOfIndexes[2]].classList.remove('is-flipped')
+			cards[arrOfIndexes[0]].classList.remove('is-flipped')
+			cards[arrOfIndexes[1]].classList.remove('is-flipped')
+			cards[arrOfIndexes[2]].classList.remove('is-flipped')
 			// dont like this part
-			elements.cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
-			elements.cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
-			elements.cards[arrOfIndexes[2]].style.pointerEvents = 'auto'
+			cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
+			cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
+			cards[arrOfIndexes[2]].style.pointerEvents = 'auto'
 
 			arrOfIndexes = []
 			arrOfSrcValues = []
@@ -88,11 +94,11 @@ export const getIndexOfContainer = () => {
 			arrOfIndexes[1] !== undefined
 		) {
 			setTimeout(function() {
-				elements.cards[arrOfIndexes[0]].classList.remove('is-flipped')
-				elements.cards[arrOfIndexes[1]].classList.remove('is-flipped')
+				cards[arrOfIndexes[0]].classList.remove('is-flipped')
+				cards[arrOfIndexes[1]].classList.remove('is-flipped')
 				// enambling ability to press on a card
-				elements.cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
-				elements.cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
+				cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
+				cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
 				return (arrOfIndexes = [])
 			}, 1000)
 			return (arrOfSrcValues = [])
@@ -127,13 +133,22 @@ export const createCard = quantity => {
 
 	if (quantity === 'E') {
 		// make 24 picture grid
+		for (let i = 0; i < 23; i++) {
+			elements.container.insertAdjacentHTML('afterbegin', markup)
+		}
 	} else if (quantity === 'M') {
 		// make 30 picture grid
+		for (let i = 0; i < 29; i++) {
+			elements.container.insertAdjacentHTML('afterbegin', markup)
+		}
 	} else if (quantity === 'H') {
 		// make 36 picture cards?
+		for (let i = 0; i < 35; i++) {
+			elements.container.insertAdjacentHTML('afterbegin', markup)
+		}
 	} else {
-		console.log("woops you haven't picked the lvl")
+		console.log('createCads havent recieved lvl')
 	}
-
+	// why do I need this?
 	elements.container.insertAdjacentHTML('afterbegin', markup)
 }

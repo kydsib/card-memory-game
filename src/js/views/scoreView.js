@@ -1,7 +1,6 @@
 import { elements } from './base'
 import { setScoreControler } from '../index'
 import * as timerView from './timerView'
-import * as Score from '../models/Score'
 
 export const scoresToLocalStorage = () => {
 	let scoreForWins, scoreForLoses
