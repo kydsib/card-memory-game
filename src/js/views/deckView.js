@@ -19,13 +19,11 @@ import * as scoreView from './scoreView'
 
 // Need to change this
 export const addPhotos = arrForPhotos => {
-	console.log(arrForPhotos)
 	for (let i = 0; i < arrForPhotos.length; i++) {
 		// elements.images[i].src = `../../images/painting${arrForPhotos[i]}.jpg`
 		elements.images[i].src = `${arrForPhotos[i]}`
 		// elements.images[i].id = elements.cards[i].id = uniqueID()
 	}
-	console.log('run')
 }
 
 export const toggleClassOnClick = () => {
@@ -128,12 +126,14 @@ export const createCard = quantity => {
 	`
 
 	if (quantity === 'E') {
-		// make 4X5 grid
+		// make 24 picture grid
 	} else if (quantity === 'M') {
-		// make 6x6 grid
+		// make 30 picture grid
 	} else if (quantity === 'H') {
-		// make 48 cards?
+		// make 36 picture cards?
 	} else {
 		console.log("woops you haven't picked the lvl")
 	}
+
+	elements.container.insertAdjacentHTML('afterbegin', markup)
 }

@@ -1,6 +1,4 @@
 import { elements } from './base'
-import * as controler from '../index'
-import * as score from '../models/Score'
 import * as scoreVIew from './scoreView'
 
 let intervalId, matchedCards, gameTime, timeByLvl
@@ -11,8 +9,6 @@ export const calcTime = () => {
 }
 
 export const gameTimeEasy = () => {
-	// M connected to V not good
-	score.getLvl('E')
 	timeByLvl = elements.timeEasy
 	gameTime = elements.timeEasy
 	calcAndShowTime(0)
@@ -22,7 +18,6 @@ export const gameTimeEasy = () => {
 }
 
 export const gameTimeMedium = () => {
-	score.getLvl('M')
 	// time to use as default starting time in medium game
 	timeByLvl = elements.timeMedium
 	// Time that is used to store how mutch sec passed from start
@@ -34,7 +29,6 @@ export const gameTimeMedium = () => {
 	return gameTime
 }
 export const gameTimeHard = () => {
-	score.getLvl('H')
 	timeByLvl = elements.timeHard
 	gameTime = elements.timeHard
 	calcAndShowTime(0)

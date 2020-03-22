@@ -1,4 +1,5 @@
 import { elements } from './base'
+import { setScoreControler } from '../index'
 import * as timerView from './timerView'
 import * as Score from '../models/Score'
 
@@ -23,8 +24,8 @@ export const scoresToLocalStorage = () => {
 
 	elements.winText.textContent = `You have won - ${timesWon} times`
 	elements.loseText.textContent = `You have lost - ${scoreForLoses} times`
-	// Trying to store best time by lvl to lS
-	Score.storeScoreByLvl(timerView.calcTime())
+	// View call controler, which passes timeView data to Score Model
+	setScoreControler()
 
 	let easyLowScoreTime =
 		localStorage.getItem('EasyBestTime') === null
