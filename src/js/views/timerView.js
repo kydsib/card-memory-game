@@ -42,7 +42,7 @@ const calcAndShowTime = () => {
 	// start width from 0, otherwise it start from 100%, and jumps back to 0% w/ timmer
 	elements.timer.style.width = '0%'
 	let time = parseInt(timeByLvl)
-	let widthPerSecond = (100 / time).toFixed(2)
+	let widthPerSecond = 100 / time
 
 	elements.timer.style.width = `${100 - widthPerSecond * parseInt(gameTime)}%`
 	elements.timer.style.background = '#3ba3cc'

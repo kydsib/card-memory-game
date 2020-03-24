@@ -28,7 +28,6 @@ export const toggleClassOnClick = () => {
 
 // adding aditional functionality for lvls
 export const getIndexOfContainer = lvl => {
-	console.log('getIndexOfContainer was called')
 	let matchedCards = 0
 	let arrOfIndexes = []
 	let arrOfSrcValues = []
@@ -149,7 +148,5 @@ export const deleteOldDeck = () => {
 			parent = cards[card].parentNode
 			parent.removeChild(cards[card])
 		}
-	} else {
-		console.log('nothing to delete')
 	}
 }

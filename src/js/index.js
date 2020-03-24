@@ -1,7 +1,5 @@
 // Card-Memory-Game
 
-// Card memory is a game where you have to click on a card to see what image is underneath it and try to find the matching image underneath the other cards.
-
 import Deck from './models/Deck'
 import Score from './models/Score'
 import * as deckView from './views/deckView'
@@ -29,9 +27,6 @@ export const controlTimer = () => {
 	controlDeck()
 	// Starting timer
 	timerView.timeCounter()
-	// disabling start buton until game reset
-	elements.startButton.disabled = true
-	// elements.startButton.removeEventListener('click')
 }
 
 const easyLvlControler = () => {
