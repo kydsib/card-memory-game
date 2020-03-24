@@ -1,7 +1,6 @@
 export const elements = {
-	// ar reikia cards ir images dar kazkur?
-	// cards: Array.from(document.querySelectorAll('.card')),
-	// images: Array.from(document.querySelectorAll('.img-style')),
+	cards: Array.from(document.querySelectorAll('.card')),
+	images: Array.from(document.querySelectorAll('.img-style')),
 	// BUTTONS
 	startButton: document.getElementById('start'),
 	resetButton: document.getElementById('reset'),
