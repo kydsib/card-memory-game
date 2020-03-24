@@ -1,7 +1,8 @@
 import { elements } from './base'
 import * as scoreVIew from './scoreView'
 
-let intervalId, matchedCards, gameTime, timeByLvl
+let intervalId, gameTime, timeByLvl
+let matchedCards = 0
 
 export const calcTime = () => {
 	// Default lvl starting time - time left
@@ -11,7 +12,7 @@ export const calcTime = () => {
 export const gameTimeEasy = () => {
 	timeByLvl = elements.timeEasy
 	gameTime = elements.timeEasy
-	calcAndShowTime(0)
+	calcAndShowTime()
 	// hiding modal after lvl is selected
 	elements.gameLvlBox.style.display = 'none'
 	return gameTime
@@ -23,7 +24,7 @@ export const gameTimeMedium = () => {
 	// Time that is used to store how mutch sec passed from start
 	gameTime = elements.timeMedium
 
-	calcAndShowTime(0)
+	calcAndShowTime()
 	// hiding modal after lvl is selected
 	elements.gameLvlBox.style.display = 'none'
 	return gameTime
@@ -31,44 +32,35 @@ export const gameTimeMedium = () => {
 export const gameTimeHard = () => {
 	timeByLvl = elements.timeHard
 	gameTime = elements.timeHard
-	calcAndShowTime(0)
+	calcAndShowTime()
 	// hiding modal after lvl is selected
 	elements.gameLvlBox.style.display = 'none'
 	return gameTime
 }
 
-const calcAndShowTime = delay => {
-	// if function was called by start btn, time would be reduced in 1s so there would be no delay
-	let newTimeInSec = gameTime - delay
-	let min = parseInt(newTimeInSec / 60, 10)
+const calcAndShowTime = () => {
+	// start width from 0, otherwise it start from 100%, and jumps back to 0% w/ timmer
+	elements.timer.style.width = '0%'
+	let time = parseInt(timeByLvl)
+	let widthPerSecond = (100 / time).toFixed(2)
 
-	let sec = parseInt(newTimeInSec % 60, 10)
-
-	min = min < 10 ? '0' + min : min
-	sec = sec < 10 ? '0' + sec : sec
-
-	elements.timer.innerHTML = `${min}:${sec}`
+	elements.timer.style.width = `${100 - widthPerSecond * parseInt(gameTime)}%`
+	elements.timer.style.background = '#3ba3cc'
 }
 
 const timeLeft = () => {
-	matchedCards = 0
-	calcAndShowTime(1)
+	calcAndShowTime()
 
 	if (--gameTime < 0) {
-		// not yet sure why timer goes below 0. Because of calcAndShowTime?
-		// workaround fix for this problem
-		elements.timer.innerHTML = '00:00'
+		elements.messageBox.innerHTML = "Time's over, better call Saul!"
 		scoreVIew.gameLostGetScores()
 		elements.dialogBox.style.display = 'block'
-
 		// stoping timer
 		stopTimer()
-
 		// after time is finished player can't open any new cards
 		cardFlipDisable()
 	} else if (matchedCards === 12) {
 		stopTimer()
-
 		cardFlipDisable()
 	}
 }
@@ -86,25 +78,11 @@ export const timeCounter = () => {
 export const stopTimer = () => {
 	clearInterval(intervalId)
 }
-// Should I move this to deckView?
+
 const cardFlipDisable = () => {
 	elements.cards.map(card => (card.style.pointerEvents = 'none'))
 }
-// Should I move this to deckView?
+
 export const cadFlipEnable = () => {
 	elements.cards.map(card => (card.style.pointerEvents = ''))
-}
-
-export const reset = () => {
-	// player is not allowed to flip cards before pressing START
-	cardFlipDisable()
-	elements.cards.map(card => card.classList.remove('is-flipped'))
-	elements.startButton.disabled = false
-	stopTimer()
-	// Setting timer to 0:00
-	calcAndShowTime(0)
-	showModal()
-	// elements.startButton.removeEventListener('click', controler.controlTimer) // this removes event listener but I wont be added again
-	// reseting timer
-	return (matchedCards = 0)
 }

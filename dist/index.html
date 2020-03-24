@@ -9,13 +9,9 @@
     </head>
     <body>
 
-        <!-- <div class="options-tab">
-			<h1 class="title">Welcome to card memory game!</h1>
-		</div> -->
-        <div class="game-start">
-            <span id="time">01:30</span>
-            <button id="start">Start</button>
-            <button id="reset">Reset Game</button>
+
+        <div id="time-container" class="game-start">
+            <div  class="time" id="time"></div>
 
         </div>
         <div class="modal" id="myModal">
@@ -51,154 +47,9 @@
             </div>
         </div>
 
-        <div class="container" id="container">
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-            <div class="card">
-                <div class="card__item card__item--front">
-                    <img alt="painting" class="img-style" src=""/>
-                </div>
-                <div class="card__item card__item--back"></div>
-            </div>
-
+        <ul class="container" id="container">
+        </ul>
         <script type="text/javascript" src="js/bundle.js"></script></body>
-        <!-- <script src="js/index.js" type="module"></script> -->
-                                                                                                                                                        <!-- <script src="index.js"></script> -->
+        <script src="js/index.js" type="module"></script>                                                                                                                                 <!-- <script src="index.js"></script> -->
     </body>
 </html>

@@ -2,22 +2,6 @@ import { elements } from './base'
 import * as timerView from './timerView'
 import * as scoreView from './scoreView'
 
-// is it ok to import parts from Module files?
-
-// I might not need this
-// const uniqueID = () => {
-// 	// Math.random should be unique because of its seeding algorithm.
-// 	// Convert it to base 36 (numbers + letters), and grab the first 9 characters
-// 	// after the decimal.
-// 	return (
-// 		'_' +
-// 		Math.random()
-// 			.toString(36)
-// 			.substr(2, 9)
-// 	)
-// }
-
-// Woul it be posible to do this without id?
 export const addPhotos = arrForPhotos => {
 	let imgContainers = Array.from(document.querySelectorAll('.img-style'))
 	for (let i = 0; i < arrForPhotos.length; i++) {
@@ -42,7 +26,9 @@ export const toggleClassOnClick = () => {
 	})
 }
 
-export const getIndexOfContainer = () => {
+// adding aditional functionality for lvls
+export const getIndexOfContainer = lvl => {
+	console.log('getIndexOfContainer was called')
 	let matchedCards = 0
 	let arrOfIndexes = []
 	let arrOfSrcValues = []
@@ -54,10 +40,7 @@ export const getIndexOfContainer = () => {
 			show.call(event.target, event)
 		}
 
-		// geting src of image tag
-		let elements = arrOfSrcValues.push(
-			imgContainers[show.call(event.target, event)].src
-		)
+		arrOfSrcValues.push(imgContainers[show.call(event.target, event)].src)
 
 		arrOfIndexes.push(show.call(event.target, event))
 
@@ -74,17 +57,25 @@ export const getIndexOfContainer = () => {
 			arrOfIndexes = []
 			arrOfSrcValues = []
 		} else if (arrOfSrcValues[0] === arrOfSrcValues[1]) {
-			if (matchedCards === 11) {
+			if (matchedCards === 11 && lvl === 'E') {
 				timerView.stopTimer()
-				console.log('You won the game')
+				// show score modal
+				elements.dialogBox.style.display = 'block'
 				// storing best scores to LS
 				scoreView.scoresToLocalStorage()
-
-				// Need to add a pop up table w/ time and score
+			} else if (matchedCards === 14 && lvl === 'M') {
+				timerView.stopTimer()
 				elements.dialogBox.style.display = 'block'
+				scoreView.scoresToLocalStorage()
+			} else if (matchedCards === 17 && lvl === 'H') {
+				timerView.stopTimer()
+				elements.dialogBox.style.display = 'block'
+				scoreView.scoresToLocalStorage()
 			}
+			// returninu values jei matchino, kad galeciau pradeti is naujo
 			arrOfIndexes = []
 			arrOfSrcValues = []
+
 			return matchedCards++
 		} else if (
 			// checking if src values match
@@ -132,17 +123,14 @@ export const createCard = quantity => {
 	`
 
 	if (quantity === 'E') {
-		// make 24 picture grid
 		for (let i = 0; i < 23; i++) {
 			elements.container.insertAdjacentHTML('afterbegin', markup)
 		}
 	} else if (quantity === 'M') {
-		// make 30 picture grid
 		for (let i = 0; i < 29; i++) {
 			elements.container.insertAdjacentHTML('afterbegin', markup)
 		}
 	} else if (quantity === 'H') {
-		// make 36 picture cards?
 		for (let i = 0; i < 35; i++) {
 			elements.container.insertAdjacentHTML('afterbegin', markup)
 		}
@@ -151,4 +139,17 @@ export const createCard = quantity => {
 	}
 	// why do I need this?
 	elements.container.insertAdjacentHTML('afterbegin', markup)
+}
+
+export const deleteOldDeck = () => {
+	if (document.querySelectorAll('.card').length > 0) {
+		let parent, card
+		let cards = Array.from(document.querySelectorAll('.card'))
+		for (card in cards) {
+			parent = cards[card].parentNode
+			parent.removeChild(cards[card])
+		}
+	} else {
+		console.log('nothing to delete')
+	}
 }

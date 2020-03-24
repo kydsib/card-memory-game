@@ -17,20 +17,15 @@ const state = {}
 // DECK CONTROLER
 
 const controlDeck = () => {
-	// state.deck = new Deck()
-
 	deckView.addPhotos(state.deck.shuffleArrayValues())
 	// addling ability to flip card
 	deckView.toggleClassOnClick()
 	timerView.cadFlipEnable()
-
-	deckView.getIndexOfContainer()
 }
 
 // TIMER CONTROLER
 
 export const controlTimer = () => {
-	// initiating new values for deck
 	controlDeck()
 	// Starting timer
 	timerView.timeCounter()
@@ -40,49 +35,59 @@ export const controlTimer = () => {
 }
 
 const easyLvlControler = () => {
+	deckView.deleteOldDeck()
 	// set game time
 	timerView.gameTimeEasy()
 	// set game lvl for score modal
 	state.score = new Score('E')
 	state.deck = new Deck('E')
 	deckView.createCard('E')
+	//
+	deckView.getIndexOfContainer('E')
+	controlTimer()
 }
 
 const mediumLvlControler = () => {
-	// set game time
+	deckView.deleteOldDeck()
 	timerView.gameTimeMedium()
-	// set game lvl for score modal
 	state.score = new Score('M')
 	state.deck = new Deck('M')
 	deckView.createCard('M')
+	deckView.getIndexOfContainer('M')
+	controlTimer()
 }
 
 const hardLvlControler = () => {
-	// set game time
+	deckView.deleteOldDeck()
 	timerView.gameTimeHard()
-	// set game lvl for score modal
 	state.score = new Score('H')
 	state.deck = new Deck('H')
 	deckView.createCard('H')
+	deckView.getIndexOfContainer('H')
+	controlTimer()
 }
 
 export const setScoreControler = () => {
 	state.score.storeScoreByLvl(timerView.calcTime())
-	state.score.logLvl()
+}
+
+const closeScoreModal = () => {
+	elements.dialogBox.style.display = 'none'
+	elements.gameLvlBox.style.display = 'block'
 }
 
 const closeModal = () => {
 	elements.gameLvlBox.style.display = 'none'
 	elements.dialogBox.style.display = 'none'
 }
+// Testing new functionality
+
 // BUTTONS
 window.onload = timerView.showModal
-elements.startButton.addEventListener('click', controlTimer)
-elements.resetButton.addEventListener('click', timerView.reset)
 // GAME LVL SETTINGS
 elements.buttonEasy.addEventListener('click', easyLvlControler)
 elements.buttonMediun.addEventListener('click', mediumLvlControler)
 elements.buttonHard.addEventListener('click', hardLvlControler)
 // elements.closeModalBtn.addEventListener('click', closeModal) // why this not working? because I'm trying to add event listener w/o maping?
 elements.closeLvlModal.addEventListener('click', closeModal)
-elements.closeScoreModal.addEventListener('click', closeModal)
+elements.closeScoreModal.addEventListener('click', closeScoreModal)

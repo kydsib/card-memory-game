@@ -16,7 +16,7 @@ const getIdOfContainer = () => {
 
 function getIndexOfContainer() {
 	// Change this part w/ using ID
-	console.log('me was called!')
+
 	// const container = document.getElementById('container')
 	let arrOfIndexes = []
 

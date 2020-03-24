@@ -1,10 +1,6 @@
 body {
-	background: rgb(178, 174, 238);
-	background: radial-gradient(
-		circle,
-		rgba(178, 174, 238, 1) 62%,
-		rgba(148, 158, 233, 1) 93%
-	);
+	background: rgb(93, 97, 56);
+	margin: 0px;
 }
 
 .options-tab {
@@ -13,19 +9,47 @@ body {
 }
 .container {
 	display: grid;
+	margin: 0px;
 	padding-left: 0px;
-	height: 96vh;
+	height: 98vh;
 	grid-template-columns: repeat(6, 1fr);
-	grid-template-rows: repeat(4, 1fr);
-	grid-gap: 7px;
+	grid-gap: 2px;
 	perspective: 1600px;
+}
+
+.game-start {
+	height: 2vh;
+	width: 100%;
+}
+
+.time {
+	height: 100%;
+	background: #5d6138;
+}
+
+.btn {
+	text-transform: uppercase;
+	margin: 0px 15px;
+	font-size: 14px;
+	color: #3bcc5f;
+	background: #fff;
+	padding: 10px 20px;
+	border: 2px solid #5d6138;
+	border-radius: 3px;
+	transition: all 0.3s ease 0s;
+
+	&:hover {
+		border-radius: 50px;
+		border: 2px solid rgb(93, 97, 56);
+	}
 }
 
 .card {
 	list-style: none;
 	position: relative;
-	width: 16vw;
-	height: 198px;
+
+	height: auto;
+
 	text-align: center;
 	transition: transform 0.6s;
 	transform-style: preserve-3d;
@@ -41,7 +65,11 @@ body {
 		}
 
 		&--back {
-			background: red;
+			background: rgb(59, 204, 95);
+
+			&:hover {
+				background: rgb(37, 163, 68);
+			}
 		}
 	}
 
@@ -70,11 +98,11 @@ body {
 	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 
 	&__content {
-		background-color: #fefefe;
+		background-color: #3ba3cc;
 		margin: 15% auto; /* 15% from the top and centered */
 		padding: 20px;
 		border: 1px solid #888;
-		width: 80%; /* Could be more or less, depending on screen size */
+		width: 34%; /* Could be more or less, depending on screen size */
 	}
 }
 

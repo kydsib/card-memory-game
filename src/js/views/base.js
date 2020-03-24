@@ -1,7 +1,7 @@
 export const elements = {
 	// ar reikia cards ir images dar kazkur?
-	cards: Array.from(document.querySelectorAll('.card')),
-	images: Array.from(document.querySelectorAll('.img-style')),
+	// cards: Array.from(document.querySelectorAll('.card')),
+	// images: Array.from(document.querySelectorAll('.img-style')),
 	// BUTTONS
 	startButton: document.getElementById('start'),
 	resetButton: document.getElementById('reset'),
@@ -17,9 +17,9 @@ export const elements = {
 	dialogBox: document.getElementById('myModal'),
 	gameLvlBox: document.getElementById('gameTypeModal'),
 	messageBox: document.getElementById('winText'),
-	timeEasy: 90,
-	timeMedium: 120,
-	timeHard: 150,
+	timeEasy: 60,
+	timeMedium: 90,
+	timeHard: 120,
 
 	// SCORE
 	winText: document.getElementById('winTimes'),

@@ -38,9 +38,9 @@ export const scoresToLocalStorage = () => {
 		localStorage.getItem('HardBestTime') === null
 			? 'Currently there is no best time'
 			: localStorage.getItem('HardBestTime')
-	elements.bestEasyTime.textContent = `Best easy lvl time is - ${easyLowScoreTime} seconds`
-	elements.bestMediumTime.textContent = `Best easy lvl time is - ${mediumLowScoreTime} seconds`
-	elements.bestHardTime.textContent = `Best easy lvl time is - ${hardLowScoreTime} seconds`
+	elements.bestEasyTime.textContent = `Best easy lvl time in seconds is - ${easyLowScoreTime}`
+	elements.bestMediumTime.textContent = `Best easy lvl time in seconds is - ${mediumLowScoreTime}`
+	elements.bestHardTime.textContent = `Best easy lvl time in seconds is - ${hardLowScoreTime}`
 }
 
 export const gameLostGetScores = () => {
