@@ -59,6 +59,7 @@ const timeLeft = () => {
 		stopTimer()
 		// after time is finished player can't open any new cards
 		cardFlipDisable()
+		return (matchedCards = 0)
 	} else if (matchedCards === 12) {
 		stopTimer()
 		cardFlipDisable()

@@ -91,7 +91,7 @@ export const getIndexOfContainer = lvl => {
 				cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
 				return (arrOfIndexes = [])
 			}, 1000)
-			return (arrOfSrcValues = [])
+			return (arrOfSrcValues = []), (matchedCards = 0)
 		}
 	})
 
