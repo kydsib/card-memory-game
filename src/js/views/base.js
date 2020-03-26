@@ -16,7 +16,7 @@ export const elements = {
 	dialogBox: document.getElementById('myModal'),
 	gameLvlBox: document.getElementById('gameTypeModal'),
 	messageBox: document.getElementById('winText'),
-	timeEasy: 10,
+	timeEasy: 160,
 	timeMedium: 90,
 	timeHard: 120,
 

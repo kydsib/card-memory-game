@@ -2,11 +2,16 @@ import { elements } from './base'
 import * as timerView from './timerView'
 import * as scoreView from './scoreView'
 
+let matchedCards = 0
+
+export const resetMatchedCards = () => {
+	return (matchedCards = 0)
+}
+
 export const addPhotos = arrForPhotos => {
 	let imgContainers = Array.from(document.querySelectorAll('.img-style'))
 	for (let i = 0; i < arrForPhotos.length; i++) {
 		imgContainers[i].src = `${arrForPhotos[i]}`
-		// elements.images[i].id = cards[i].id = uniqueID()
 	}
 }
 
@@ -28,7 +33,6 @@ export const toggleClassOnClick = () => {
 
 // adding aditional functionality for lvls
 export const getIndexOfContainer = lvl => {
-	let matchedCards = 0
 	let arrOfIndexes = []
 	let arrOfSrcValues = []
 	let imgContainers = Array.from(document.querySelectorAll('.img-style'))
@@ -42,7 +46,6 @@ export const getIndexOfContainer = lvl => {
 		arrOfSrcValues.push(imgContainers[show.call(event.target, event)].src)
 
 		arrOfIndexes.push(show.call(event.target, event))
-
 		// If player tires to open more that two cards ar a time, denie it
 		if (arrOfIndexes.length > 2) {
 			cards[arrOfIndexes[0]].classList.remove('is-flipped')
@@ -74,7 +77,6 @@ export const getIndexOfContainer = lvl => {
 			// returninu values jei matchino, kad galeciau pradeti is naujo
 			arrOfIndexes = []
 			arrOfSrcValues = []
-
 			return matchedCards++
 		} else if (
 			// checking if src values match
@@ -90,8 +92,8 @@ export const getIndexOfContainer = lvl => {
 				cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
 				cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
 				return (arrOfIndexes = [])
-			}, 1000)
-			return (arrOfSrcValues = []), (matchedCards = 0)
+			}, 500)
+			return (arrOfSrcValues = [])
 		}
 	})
 

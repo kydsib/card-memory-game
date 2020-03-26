@@ -1,8 +1,8 @@
 import { elements } from './base'
 import * as scoreVIew from './scoreView'
+import * as deckView from './deckView'
 
 let intervalId, gameTime, timeByLvl
-let matchedCards = 0
 
 export const calcTime = () => {
 	// Default lvl starting time - time left
@@ -59,10 +59,7 @@ const timeLeft = () => {
 		stopTimer()
 		// after time is finished player can't open any new cards
 		cardFlipDisable()
-		return (matchedCards = 0)
-	} else if (matchedCards === 12) {
-		stopTimer()
-		cardFlipDisable()
+		deckView.resetMatchedCards()
 	}
 }
 
