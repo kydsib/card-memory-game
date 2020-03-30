@@ -52,13 +52,17 @@ export const gameLostGetScores = () => {
 
 	if (localStorage.getItem('Lost') === null) {
 		scoreForLoses = 0
-		elements.loseText.textContent = `You have lost - ${scoreForLoses} times`
 		scoreForLoses++
+		if (scoreForLoses == 1) {
+			elements.loseText.textContent = `You have lost - ${scoreForLoses} time`
+		} else {
+			elements.loseText.textContent = `You have lost - ${scoreForLoses} times`
+		}
 		localStorage.setItem('Lost', scoreForLoses)
 	} else {
 		scoreForLoses = localStorage.getItem('Lost')
-		elements.loseText.textContent = `You have lost - ${scoreForLoses} times`
 		scoreForLoses++
+		elements.loseText.textContent = `You have lost - ${scoreForLoses} times`
 		localStorage.setItem('Lost', scoreForLoses)
 	}
 
@@ -68,7 +72,11 @@ export const gameLostGetScores = () => {
 		scoreForWins = localStorage.getItem('Won')
 	}
 
-	elements.winText.textContent = `You have won - ${scoreForWins} times`
+	if (scoreForWins == 1) {
+		elements.winText.textContent = `You have won - ${scoreForWins} time`
+	} else {
+		elements.winText.textContent = `You have won - ${scoreForWins} times`
+	}
 
 	getBestScores()
 }

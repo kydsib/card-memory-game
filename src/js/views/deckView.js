@@ -5,7 +5,10 @@ import * as scoreView from './scoreView'
 let matchedCards = 0
 
 export const resetMatchedCards = () => {
-	return (matchedCards = 0)
+	console.log(`currently there are ${matchedCards} matched cards`)
+	matchedCards = 0
+	console.log('Cards are reset')
+	return matchedCards
 }
 
 export const addPhotos = arrForPhotos => {
@@ -59,25 +62,33 @@ export const getIndexOfContainer = lvl => {
 			arrOfIndexes = []
 			arrOfSrcValues = []
 		} else if (arrOfSrcValues[0] === arrOfSrcValues[1]) {
-			if (matchedCards === 11 && lvl === 'E') {
+			console.log(
+				`Src of photos have matched ${arrOfSrcValues[0]} and ${arrOfSrcValues[1]}`
+			)
+			matchedCards++
+			console.log(`Number of matched cards ${matchedCards}`)
+			if (matchedCards === 12 && lvl === 'E') {
 				timerView.stopTimer()
 				// show score modal
 				elements.dialogBox.style.display = 'block'
 				// storing best scores to LS
 				scoreView.scoresToLocalStorage()
-			} else if (matchedCards === 14 && lvl === 'M') {
+				// reseting matched cards
+				resetMatchedCards()
+			} else if (matchedCards === 15 && lvl === 'M') {
 				timerView.stopTimer()
 				elements.dialogBox.style.display = 'block'
 				scoreView.scoresToLocalStorage()
-			} else if (matchedCards === 17 && lvl === 'H') {
+				resetMatchedCards()
+			} else if (matchedCards === 18 && lvl === 'H') {
 				timerView.stopTimer()
 				elements.dialogBox.style.display = 'block'
 				scoreView.scoresToLocalStorage()
+				resetMatchedCards()
 			}
 			// returninu values jei matchino, kad galeciau pradeti is naujo
 			arrOfIndexes = []
 			arrOfSrcValues = []
-			return matchedCards++
 		} else if (
 			// checking if src values match
 			arrOfSrcValues[0] !== arrOfSrcValues[1] &&
@@ -143,9 +154,9 @@ export const createCard = quantity => {
 }
 
 export const deleteOldDeck = () => {
-	if (document.querySelectorAll('.card').length > 0) {
+	let cards = Array.from(document.querySelectorAll('.card'))
+	if (cards.length > 0) {
 		let parent, card
-		let cards = Array.from(document.querySelectorAll('.card'))
 		for (card in cards) {
 			parent = cards[card].parentNode
 			parent.removeChild(cards[card])
