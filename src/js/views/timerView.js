@@ -10,7 +10,9 @@ export const calcTime = () => {
 }
 
 export const gameTimeEasy = () => {
+	// time to use as default starting time in medium game
 	timeByLvl = elements.timeEasy
+	// Time that is used to store how mutch sec passed from start
 	gameTime = elements.timeEasy
 	calcAndShowTime()
 	// hiding modal after lvl is selected
@@ -19,13 +21,11 @@ export const gameTimeEasy = () => {
 }
 
 export const gameTimeMedium = () => {
-	// time to use as default starting time in medium game
 	timeByLvl = elements.timeMedium
-	// Time that is used to store how mutch sec passed from start
+
 	gameTime = elements.timeMedium
 
 	calcAndShowTime()
-	// hiding modal after lvl is selected
 	elements.gameLvlBox.style.display = 'none'
 	return gameTime
 }
@@ -33,7 +33,6 @@ export const gameTimeHard = () => {
 	timeByLvl = elements.timeHard
 	gameTime = elements.timeHard
 	calcAndShowTime()
-	// hiding modal after lvl is selected
 	elements.gameLvlBox.style.display = 'none'
 	return gameTime
 }
@@ -78,9 +77,11 @@ export const stopTimer = () => {
 }
 
 const cardFlipDisable = () => {
-	elements.cards.map(card => (card.style.pointerEvents = 'none'))
+	let cards = Array.from(elements.cards)
+	cards.map(card => (card.style.pointerEvents = 'none'))
 }
 
 export const cadFlipEnable = () => {
-	elements.cards.map(card => (card.style.pointerEvents = ''))
+	let cards = Array.from(elements.cards)
+	cards.map(card => (card.style.pointerEvents = ''))
 }

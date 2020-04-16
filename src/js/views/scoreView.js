@@ -11,7 +11,7 @@ export const scoresToLocalStorage = () => {
 	}
 
 	scoreForWins++
-	elements.messageBox.innerHTML = `You finished the game in ${timerView.calcTime()} seconds`
+	elements.messageBox.innerHTML = `Your time - ${timerView.calcTime()}s`
 	localStorage.setItem('Won', scoreForWins)
 	let timesWon = localStorage.getItem('Won')
 
@@ -21,8 +21,13 @@ export const scoresToLocalStorage = () => {
 		scoreForLoses = localStorage.getItem('Lost')
 	}
 
-	elements.winText.textContent = `You have won - ${timesWon} times`
-	elements.loseText.textContent = `You have lost - ${scoreForLoses} times`
+	if (scoreForWins === 1) {
+		elements.winText.textContent = `Won - ${timesWon} time`
+	} else {
+		elements.winText.textContent = `Won - ${timesWon} times`
+	}
+
+	elements.loseText.textContent = `Lost - ${scoreForLoses} times`
 	// View call controler, which passes timeView data to Score Model
 	setScoreControler()
 	getBestScores()
@@ -31,38 +36,37 @@ export const scoresToLocalStorage = () => {
 const getBestScores = () => {
 	let easyLowScoreTime =
 		localStorage.getItem('EasyBestTime') === null
-			? 'Currently there is no best time'
+			? 'No best time yet'
 			: localStorage.getItem('EasyBestTime')
 	let mediumLowScoreTime =
 		localStorage.getItem('MediumBestTime') === null
-			? 'Currently there is no best time'
+			? 'No best time yet'
 			: localStorage.getItem('MediumBestTime')
 	let hardLowScoreTime =
 		localStorage.getItem('HardBestTime') === null
-			? 'Currently there is no best time'
+			? 'No best time yet'
 			: localStorage.getItem('HardBestTime')
-	elements.bestEasyTime.textContent = `Best easy lvl time in seconds is - ${easyLowScoreTime}`
-	elements.bestMediumTime.textContent = `Best easy lvl time in seconds is - ${mediumLowScoreTime}`
-	elements.bestHardTime.textContent = `Best easy lvl time in seconds is - ${hardLowScoreTime}`
+	elements.bestEasyTime.textContent = `Best easy lvl score - ${easyLowScoreTime}s`
+	elements.bestMediumTime.textContent = `Best easy lvl score - ${mediumLowScoreTime}s`
+	elements.bestHardTime.textContent = `Best easy lvl score - ${hardLowScoreTime}s`
 }
 
 export const gameLostGetScores = () => {
-	console.log('Me was called I mean gameLOstGetScores')
 	let scoreForLoses, scoreForWins
 
 	if (localStorage.getItem('Lost') === null) {
 		scoreForLoses = 0
 		scoreForLoses++
 		if (scoreForLoses == 1) {
-			elements.loseText.textContent = `You have lost - ${scoreForLoses} time`
+			elements.loseText.textContent = `Lost - ${scoreForLoses} time`
 		} else {
-			elements.loseText.textContent = `You have lost - ${scoreForLoses} times`
+			elements.loseText.textContent = `Lost - ${scoreForLoses} times`
 		}
 		localStorage.setItem('Lost', scoreForLoses)
 	} else {
 		scoreForLoses = localStorage.getItem('Lost')
 		scoreForLoses++
-		elements.loseText.textContent = `You have lost - ${scoreForLoses} times`
+		elements.loseText.textContent = `Lost - ${scoreForLoses} times`
 		localStorage.setItem('Lost', scoreForLoses)
 	}
 
@@ -73,9 +77,9 @@ export const gameLostGetScores = () => {
 	}
 
 	if (scoreForWins == 1) {
-		elements.winText.textContent = `You have won - ${scoreForWins} time`
+		elements.winText.textContent = `Won - ${scoreForWins} time`
 	} else {
-		elements.winText.textContent = `You have won - ${scoreForWins} times`
+		elements.winText.textContent = `Won - ${scoreForWins} times`
 	}
 
 	getBestScores()

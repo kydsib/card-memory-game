@@ -5,21 +5,20 @@ import * as scoreView from './scoreView'
 let matchedCards = 0
 
 export const resetMatchedCards = () => {
-	console.log(`currently there are ${matchedCards} matched cards`)
 	matchedCards = 0
-	console.log('Cards are reset')
 	return matchedCards
 }
 
 export const addPhotos = arrForPhotos => {
-	let imgContainers = Array.from(document.querySelectorAll('.img-style'))
+	let imgContainers = elements.images
 	for (let i = 0; i < arrForPhotos.length; i++) {
 		imgContainers[i].src = `${arrForPhotos[i]}`
 	}
 }
 
 export const toggleClassOnClick = () => {
-	let cards = Array.from(document.querySelectorAll('.card'))
+	let cards = Array.from(elements.cards)
+
 	cards.forEach(card => {
 		card.addEventListener('click', function() {
 			card.classList.value === 'card'
@@ -38,36 +37,23 @@ export const toggleClassOnClick = () => {
 export const getIndexOfContainer = lvl => {
 	let arrOfIndexes = []
 	let arrOfSrcValues = []
-	let imgContainers = Array.from(document.querySelectorAll('.img-style'))
-	let cards = Array.from(document.querySelectorAll('.card'))
+	let imgContainers = Array.from(elements.images)
 
-	elements.container.addEventListener('click', function(event) {
-		if (event.target.classList.contains('card__item--back')) {
-			show.call(event.target, event)
-		}
+	let cards = Array.from(elements.cards)
 
-		arrOfSrcValues.push(imgContainers[show.call(event.target, event)].src)
+	cards.map(card =>
+		card.addEventListener('click', function(event) {
+			if (event.target.classList.contains('card__item--back')) {
+				show.call(event.target, event)
+			}
 
-		arrOfIndexes.push(show.call(event.target, event))
-		// If player tires to open more that two cards ar a time, denie it
-		if (arrOfIndexes.length > 2) {
-			cards[arrOfIndexes[0]].classList.remove('is-flipped')
-			cards[arrOfIndexes[1]].classList.remove('is-flipped')
-			cards[arrOfIndexes[2]].classList.remove('is-flipped')
-			// dont like this part
-			cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
-			cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
-			cards[arrOfIndexes[2]].style.pointerEvents = 'auto'
-
-			arrOfIndexes = []
-			arrOfSrcValues = []
-		} else if (arrOfSrcValues[0] === arrOfSrcValues[1]) {
-			console.log(
-				`Src of photos have matched ${arrOfSrcValues[0]} and ${arrOfSrcValues[1]}`
+			arrOfSrcValues.push(
+				imgContainers[show.call(event.target, event)].src
 			)
-			matchedCards++
-			console.log(`Number of matched cards ${matchedCards}`)
-			if (matchedCards === 12 && lvl === 'E') {
+
+			arrOfIndexes.push(show.call(event.target, event))
+			// console.log(arrOfSrcValues)
+			if (arrOfSrcValues.length === 24) {
 				timerView.stopTimer()
 				// show score modal
 				elements.dialogBox.style.display = 'block'
@@ -75,38 +61,61 @@ export const getIndexOfContainer = lvl => {
 				scoreView.scoresToLocalStorage()
 				// reseting matched cards
 				resetMatchedCards()
-			} else if (matchedCards === 15 && lvl === 'M') {
-				timerView.stopTimer()
-				elements.dialogBox.style.display = 'block'
-				scoreView.scoresToLocalStorage()
-				resetMatchedCards()
-			} else if (matchedCards === 18 && lvl === 'H') {
-				timerView.stopTimer()
-				elements.dialogBox.style.display = 'block'
-				scoreView.scoresToLocalStorage()
-				resetMatchedCards()
 			}
-			// returninu values jei matchino, kad galeciau pradeti is naujo
-			arrOfIndexes = []
-			arrOfSrcValues = []
-		} else if (
-			// checking if src values match
-			arrOfSrcValues[0] !== arrOfSrcValues[1] &&
-			// skipping undefined cases
-			arrOfIndexes[0] !== undefined &&
-			arrOfIndexes[1] !== undefined
-		) {
-			setTimeout(function() {
+			// If player tires to open more that two cards ar a time, denie it
+			if (arrOfIndexes.length > 2) {
 				cards[arrOfIndexes[0]].classList.remove('is-flipped')
 				cards[arrOfIndexes[1]].classList.remove('is-flipped')
-				// enambling ability to press on a card
+				cards[arrOfIndexes[2]].classList.remove('is-flipped')
+				// dont like this part
 				cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
 				cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
-				return (arrOfIndexes = [])
-			}, 500)
-			return (arrOfSrcValues = [])
-		}
-	})
+				cards[arrOfIndexes[2]].style.pointerEvents = 'auto'
+
+				return (arrOfIndexes.length = 2), (arrOfSrcValues.length = 2)
+			} else if (arrOfSrcValues[0] === arrOfSrcValues[1]) {
+				matchedCards++
+				if (matchedCards === 12 && lvl === 'E') {
+					timerView.stopTimer()
+					// show score modal
+					elements.dialogBox.style.display = 'block'
+					// storing best scores to LS
+					scoreView.scoresToLocalStorage()
+					// reseting matched cards
+					resetMatchedCards()
+				} else if (matchedCards === 15 && lvl === 'M') {
+					timerView.stopTimer()
+					elements.dialogBox.style.display = 'block'
+					scoreView.scoresToLocalStorage()
+					resetMatchedCards()
+				} else if (matchedCards === 18 && lvl === 'H') {
+					timerView.stopTimer()
+					elements.dialogBox.style.display = 'block'
+					scoreView.scoresToLocalStorage()
+					resetMatchedCards()
+				}
+				// returninu values jei matchino, kad galeciau pradeti is naujo
+				arrOfIndexes = []
+				arrOfSrcValues = []
+			} else if (
+				// checking if src values match
+				arrOfSrcValues[0] !== arrOfSrcValues[1] &&
+				// skipping undefined cases
+				arrOfIndexes[0] !== undefined &&
+				arrOfIndexes[1] !== undefined
+			) {
+				setTimeout(function() {
+					// kaip yra kad atsiranda variantu kai cards[arrOfIndexes[0]] yra undefined?
+					cards[arrOfIndexes[0]].classList.remove('is-flipped')
+					cards[arrOfIndexes[1]].classList.remove('is-flipped')
+					// enambling ability to press on a card
+					cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
+					cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
+					return (arrOfIndexes = []), (arrOfSrcValues = [])
+				}, 300)
+			}
+		})
+	)
 
 	// get live collection so you only need to call this once
 	let liveCollection = elements.container.getElementsByClassName(
@@ -135,26 +144,24 @@ export const createCard = quantity => {
 	`
 
 	if (quantity === 'E') {
-		for (let i = 0; i < 23; i++) {
+		for (let i = 0; i < 24; i++) {
 			elements.container.insertAdjacentHTML('afterbegin', markup)
 		}
 	} else if (quantity === 'M') {
-		for (let i = 0; i < 29; i++) {
+		for (let i = 0; i < 30; i++) {
 			elements.container.insertAdjacentHTML('afterbegin', markup)
 		}
 	} else if (quantity === 'H') {
-		for (let i = 0; i < 35; i++) {
+		for (let i = 0; i < 36; i++) {
 			elements.container.insertAdjacentHTML('afterbegin', markup)
 		}
 	} else {
 		console.log('createCads havent recieved lvl')
 	}
-	// why do I need this?
-	elements.container.insertAdjacentHTML('afterbegin', markup)
 }
 
 export const deleteOldDeck = () => {
-	let cards = Array.from(document.querySelectorAll('.card'))
+	let cards = Array.from(elements.cards)
 	if (cards.length > 0) {
 		let parent, card
 		for (card in cards) {

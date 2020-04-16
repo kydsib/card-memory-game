@@ -83,6 +83,6 @@ window.onload = timerView.showModal
 elements.buttonEasy.addEventListener('click', easyLvlControler)
 elements.buttonMediun.addEventListener('click', mediumLvlControler)
 elements.buttonHard.addEventListener('click', hardLvlControler)
-// elements.closeModalBtn.addEventListener('click', closeModal) // why this not working? because I'm trying to add event listener w/o maping?
+
 elements.closeLvlModal.addEventListener('click', closeModal)
 elements.closeScoreModal.addEventListener('click', closeScoreModal)

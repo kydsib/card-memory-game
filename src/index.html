@@ -1,54 +1,47 @@
 <!DOCTYPE html>
 <html lastyle.ng="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
-        <link href="css/style.css" rel="stylesheet"/>
-        <title>Card Memory Game</title>
-    </head>
-    <body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta content="ie=edge" http-equiv="X-UA-Compatible" />
+		<link href="css/style.css" rel="stylesheet" />
+		<title>Card Memory Game</title>
+	</head>
+	<body>
+		<div class="game-start" id="time-container">
+			<div class="time" id="time"></div>
+		</div>
+		<div class="modal" id="myModal">
+			<!-- Game won Modal content -->
+			<div class="modal__content score">
+				<span class="socre__item" id="winText">
+					You have won the game</span
+				>
+				<div class="socre__item">
+					<div id="winTimes">You have won -</div>
+					<div id="loseTimes">You have lsot -</div>
+				</div>
+				<div class="socre__item">
+					<div id="score-easy">Best easy lvl time is-</div>
+					<div id="score-medium">Best medium lvl time is-</div>
+					<div id="score-hard">Best hard lvl time is-</div>
+				</div>
+				<span class="close socre__item" id="scoreModal">&times;</span>
+			</div>
+		</div>
 
+		<!-- New Game Modal content -->
+		<div class="modal" id="gameTypeModal">
+			<div class="modal__content">
+				<span class="center"> Choose the game level</span>
+				<button class="btn" id="easy">Easy</button>
+				<button class="btn" id="medium">Medium</button>
+				<button class="btn" id="hard">Hard</button>
+				<span class="close center" id="levelModal">&times;</span>
+			</div>
+		</div>
 
-        <div class="game-start" id="time-container">
-            <div class="time" id="time"></div>
-
-        </div>
-        <div class="modal" id="myModal">
-
-            <!-- Game won Modal content -->
-            <div class="modal__content">
-                <span class="close" id="scoreModal">&times;</span>
-                <p id="winText">
-                    You have won the game</p>
-                <div class="win-loss">
-                    <span id="winTimes">You have won -</span>
-                    <span id="loseTimes">You have lsot -</span>
-                </div>
-                <div class="score-card">
-
-                    <div id="score-easy">Best easy lvl time is-</div>
-                    <div id="score-medium">Best medium lvl time is-</div>
-                    <div id="score-hard">Best hard lvl time is-</div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- New Game Modal content -->
-        <div class="modal" id="gameTypeModal">
-            <div class="modal__content">
-                <span class="close" id="levelModal">&times;</span>
-                <span>
-                    Choose the game level</span>
-                <button class="btn" id="easy">Easy</button>
-                <button class="btn" id="medium">Medium</button>
-                <button class="btn" id="hard">Hard</button>
-            </div>
-        </div>
-
-        <ul class="container" id="container"></ul>
-    </body>
-    <!-- <script src="index.js"></script> -->
-
+		<ul class="container" id="container"></ul>
+	</body>
+	<!-- <script src="index.js"></script> -->
 </html>

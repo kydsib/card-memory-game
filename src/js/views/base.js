@@ -1,6 +1,6 @@
 export const elements = {
-	cards: Array.from(document.querySelectorAll('.card')),
-	images: Array.from(document.querySelectorAll('.img-style')),
+	cards: document.getElementsByTagName('li'),
+	images: document.getElementsByTagName('img'),
 	// BUTTONS
 	startButton: document.getElementById('start'),
 	resetButton: document.getElementById('reset'),
@@ -16,9 +16,9 @@ export const elements = {
 	dialogBox: document.getElementById('myModal'),
 	gameLvlBox: document.getElementById('gameTypeModal'),
 	messageBox: document.getElementById('winText'),
-	timeEasy: 360,
-	timeMedium: 390,
-	timeHard: 320,
+	timeEasy: 60,
+	timeMedium: 90,
+	timeHard: 120,
 
 	// SCORE
 	winText: document.getElementById('winTimes'),
