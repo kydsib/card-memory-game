@@ -62,19 +62,34 @@ export const getIndexOfContainer = lvl => {
 				// reseting matched cards
 				resetMatchedCards()
 			}
-			// If player tires to open more that two cards ar a time, denie it
-			if (arrOfIndexes.length > 2) {
-				cards[arrOfIndexes[0]].classList.remove('is-flipped')
-				cards[arrOfIndexes[1]].classList.remove('is-flipped')
-				cards[arrOfIndexes[2]].classList.remove('is-flipped')
-				// dont like this part
-				cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
-				cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
-				cards[arrOfIndexes[2]].style.pointerEvents = 'auto'
 
-				return (arrOfIndexes.length = 2), (arrOfSrcValues.length = 2)
+			if (
+				// checking if src values match
+				arrOfSrcValues[0] !== arrOfSrcValues[1] &&
+				// skipping undefined cases
+				arrOfIndexes[0] !== undefined &&
+				arrOfIndexes[1] !== undefined
+			) {
+				// disabling ability to open any more cards, to fix undefined bug when
+				// third card is opened before first two closes
+				cards.map(card => (card.style.pointerEvents = 'none'))
+				setTimeout(function() {
+					cards[arrOfIndexes[0]].classList.remove('is-flipped')
+					cards[arrOfIndexes[1]].classList.remove('is-flipped')
+					// enambling ability to press on a card
+					cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
+					cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
+					// enabling cards to flip again
+					cards.map(card => (card.style.pointerEvents = 'auto'))
+					return (
+						(arrOfIndexes.length = 0), (arrOfSrcValues.length = 0)
+					)
+				}, 300)
 			} else if (arrOfSrcValues[0] === arrOfSrcValues[1]) {
 				matchedCards++
+				cards[arrOfIndexes[0]].style.pointerEvents = 'none'
+				cards[arrOfIndexes[1]].style.pointerEvents = 'none'
+				console.log(matchedCards)
 				if (matchedCards === 12 && lvl === 'E') {
 					timerView.stopTimer()
 					// show score modal
@@ -97,22 +112,6 @@ export const getIndexOfContainer = lvl => {
 				// returninu values jei matchino, kad galeciau pradeti is naujo
 				arrOfIndexes = []
 				arrOfSrcValues = []
-			} else if (
-				// checking if src values match
-				arrOfSrcValues[0] !== arrOfSrcValues[1] &&
-				// skipping undefined cases
-				arrOfIndexes[0] !== undefined &&
-				arrOfIndexes[1] !== undefined
-			) {
-				setTimeout(function() {
-					// kaip yra kad atsiranda variantu kai cards[arrOfIndexes[0]] yra undefined?
-					cards[arrOfIndexes[0]].classList.remove('is-flipped')
-					cards[arrOfIndexes[1]].classList.remove('is-flipped')
-					// enambling ability to press on a card
-					cards[arrOfIndexes[0]].style.pointerEvents = 'auto'
-					cards[arrOfIndexes[1]].style.pointerEvents = 'auto'
-					return (arrOfIndexes = []), (arrOfSrcValues = [])
-				}, 300)
 			}
 		})
 	)
