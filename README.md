@@ -1,6 +1,6 @@
 # Card memory game
 
-The game was built to advance my understanding on MVC (Model–view–controller) pattern. The goal of the game is to find all matching cards as soon as possible. Play the game online - kydsib.github.io/card-memory-game/
+The game was built to advance my understanding on MVC (Model–view–controller) pattern. The goal of the game is to find all matching cards as soon as possible. Play the game online - https://kydsib.github.io/card-memory-game/
 
 User score and the best time is saved in LocalStorage. There are three game levels to choose from.
 
